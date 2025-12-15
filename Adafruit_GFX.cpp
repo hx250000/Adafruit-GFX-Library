@@ -419,6 +419,31 @@ void Adafruit_GFX::drawTriangle(int16_t x0, int16_t y0,
     drawLine(x2, y2, x0, y0, color);
 }
 
+
+// Draw a pentagram
+void Adafruit_GFX::drawPentagram(int16_t x0, int16_t y0,
+                                 int16_t r, uint16_t color) {
+  // 存储五个顶点
+  int16_t x[5], y[5];
+
+  // 计算五角星五个顶点（从正上方开始，逆时针）
+  for (uint8_t i = 0; i < 5; i++) {
+    float angle = -90 + i * 72;  // -90° 让第一个点在正上方
+    float rad = angle * 3.1415926 / 180.0;
+
+    x[i] = x0 + r * cos(rad);
+    y[i] = y0 + r * sin(rad);
+  }
+
+  // 按五角星顺序连接顶点
+  drawLine(x[0], y[0], x[2], y[2], color);
+  drawLine(x[2], y[2], x[4], y[4], color);
+  drawLine(x[4], y[4], x[1], y[1], color);
+  drawLine(x[1], y[1], x[3], y[3], color);
+  drawLine(x[3], y[3], x[0], y[0], color);
+}
+
+
 // Fill a triangle
 void Adafruit_GFX::fillTriangle(int16_t x0, int16_t y0,
         int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color) {
